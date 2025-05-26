@@ -3,7 +3,7 @@ require_once 'init.php';
 
 // Get the URL Data
 $urlData = getUrlData();
-
+echo json_encode($urlData);
 // Configure the API's response headers
 switch ($urlData[Constants::ENTITY]) {
     case Constants::ENTITY_ARTISTS:
