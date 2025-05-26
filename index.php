@@ -28,7 +28,7 @@ switch($urlData[Constants::ENTITY]) {
         break;
     case Constants::ENTITY_PLAYLISTS:
         require_once BASE_PATH . '/controllers/PlaylistsController.php';
-        // $controller = new PlaylistsController();
+        $controller = new PlaylistsController($urlData);
         break;
     default:
         //sendResponse(400, 'Invalid entity specified');

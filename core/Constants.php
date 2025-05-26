@@ -32,6 +32,7 @@ class Constants {
 
     // JSON Parameters
     public const JSON_ARTIST_ID = 'artist_id';
+    public const JSON_TRACK_ID = 'track_id';
     public const JSON_TITLE = 'title';
     public const JSON_NAME = 'name';
     public const JSON_ALBUM_ID = 'album_id';
