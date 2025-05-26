@@ -25,7 +25,7 @@ class AlbumsController extends BaseController
             case 1:
                 $id = $this->params[0];
                 $this->validateId($id);
-                $response = $this->model->getById((int)$id);
+                $response = $this->model->get((int)$id);
                 $this->sendResponse($response);
                 break;
             case 2: 
@@ -33,7 +33,7 @@ class AlbumsController extends BaseController
                 $this->validateId($id);
                 $action = $this->params[1];
                 if ($action === Constants::ACTION_TRACKS) {
-                    $album = $this->model->getById((int)$id);
+                    $album = $this->model->get((int)$id);
                     if ($album[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                         $this->sendResponse($album);
                     }
