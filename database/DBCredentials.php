@@ -12,6 +12,6 @@ class DBCredentials
         $this->host = getenv('DB_HOST') ?: 'localhost';
         $this->dbname = getenv('DB_NAME') ?: 'chinook_autoincrement';
         $this->user = getenv('DB_USER') ?: 'root';
-        $this->password = getenv('DB_PASSWORD') ?: '';
+        $this->password = getenv('DB_PASSWORD') ?: 'Skejs123';
     }
 }
