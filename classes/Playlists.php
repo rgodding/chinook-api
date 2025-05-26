@@ -10,7 +10,7 @@ class Playlists extends DB
             SELECT 
             playlist.PlaylistId,
             playlist.Name
-            FROM playlist
+            FROM Playlist
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -34,7 +34,7 @@ class Playlists extends DB
             SELECT 
             playlist.PlaylistId,
             playlist.Name
-            FROM playlist
+            FROM Playlist
             WHERE playlist.Name LIKE :search
         SQL;
         try {
@@ -61,7 +61,7 @@ class Playlists extends DB
             SELECT 
             playlist.PlaylistId,
             playlist.Name
-            FROM playlist
+            FROM Playlist
             WHERE playlist.PlaylistId = :id
         SQL;
         try {
@@ -103,7 +103,7 @@ class Playlists extends DB
             genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
-            FROM playlisttrack
+            FROM Playlisttrack
             JOIN track ON playlisttrack.TrackId = track.TrackId
             JOIN genre ON track.GenreId = genre.GenreId
             JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
@@ -192,7 +192,7 @@ class Playlists extends DB
     function removeTrack($playlistId, $trackId): array
     {
         $sql = <<<SQL
-            DELETE FROM playlisttrack 
+            DELETE FROM Playlisttrack 
             WHERE PlaylistId = :playlistId AND TrackId = :trackId
         SQL;
         try {
@@ -217,7 +217,7 @@ class Playlists extends DB
     {
         // Delete a playlist by ID
         $sql = <<<SQL
-            DELETE FROM playlist 
+            DELETE FROM Playlist 
             WHERE PlaylistId = :id
         SQL;
         try {

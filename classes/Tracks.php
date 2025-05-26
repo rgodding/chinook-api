@@ -18,7 +18,7 @@ class Tracks extends DB
             genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
-            FROM track
+            FROM Track
             JOIN genre ON track.GenreId = genre.GenreId
             JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
             WHERE track.Name LIKE :search
@@ -54,7 +54,7 @@ class Tracks extends DB
             genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
-            FROM track
+            FROM Track
             JOIN genre ON track.GenreId = genre.GenreId
             JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
             WHERE track.Composer LIKE :composer
@@ -90,7 +90,7 @@ class Tracks extends DB
             genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
-            FROM track
+            FROM Track
             JOIN genre ON track.GenreId = genre.GenreId
             JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
             WHERE track.TrackId = :id

@@ -54,7 +54,7 @@ class Albums extends DB
     {
         $sql = <<<SQL
             SELECT *
-            FROM album
+            FROM Album
             WHERE albumId = :id
         SQL;
         try {
@@ -185,7 +185,7 @@ class Albums extends DB
     function delete(int $id): array
     {
         $sql = <<<SQL
-            DELETE FROM album
+            DELETE FROM Album
             WHERE AlbumId = :id
         SQL;
         try {
