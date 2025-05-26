@@ -9,10 +9,7 @@ function getUrlData() {
     // Split the URL into parts
     $urlParts = explode('/', trim($url, '/'));
     // Remove first part
-    if(count($urlParts) === 0 || $urlParts[0] === API_NAME) {
-        // Remove the API name from the URL parts
-        array_shift($urlParts);
-    }
+    array_shift($urlParts);
 
     $urlData = [
         Constants::ENTITY => $urlParts[0] ?? null,
