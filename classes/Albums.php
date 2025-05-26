@@ -148,5 +148,36 @@ class Albums extends DB
         }
 
     }
+
+    function update(int $id, string $title, int $artistId): array
+    {
+        $sql = <<<SQL
+            UPDATE album
+            SET Title = :title, ArtistId = :artistId
+            WHERE AlbumId = :id
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':id' => $id,
+                ':title' => $title,
+                ':artistId' => $artistId
+            ]);
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS,
+                ApiResponse::POS_MESSAGE => 'Album updated successfully',
+                ApiResponse::POS_DATA => [
+                    'AlbumId' => $id,
+                    'Title' => $title,
+                    'ArtistId' => $artistId
+                ]
+            ];
+        } catch (PDOException $e) {
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error updating album'
+            ];
+        }
+    }
 }
 

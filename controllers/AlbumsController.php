@@ -71,7 +71,25 @@ class AlbumsController extends BaseController
 
     public function handlePut()
     {
-        echo 'Handling PUT request for Artists';
+        switch (count($this->params)) {
+            case 1:
+                $id = $this->params[0];
+                $this->validateId($id);
+                $albumData = $this->model->getById((int)$id);
+                if ($albumData[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
+                    $this->sendResponse($albumData);
+                }
+                $oldAlbum = $albumData[ApiResponse::POS_DATA];
+                $data = $this->getRequestBody();
+                $title = $data[Constants::JSON_TITLE] ?? $oldAlbum['Title'];
+                $artistId = $data[Constants::JSON_ARTIST_ID] ?? $oldAlbum['ArtistId'];
+                $response = $this->model->update((int)$id, $title, (int)$artistId);
+                $this->sendResponse($response);
+                break;
+            default:
+                $this->sendErrorResponse('Invalid number of parameters for PUT', 400);
+                break;
+        }
     }
 
     public function handlePatch()
