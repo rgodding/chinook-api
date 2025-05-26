@@ -9,6 +9,8 @@ function getUrlData() {
     // Split the URL into parts
     $urlParts = explode('/', trim($url, '/'));
     // Remove first part
+    // Get inv DB_HOST
+    echo "DB_HOST: " . getenv('DB_HOST') . "\n";
     array_shift($urlParts);
 
     $urlData = [
