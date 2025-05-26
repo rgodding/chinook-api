@@ -62,7 +62,6 @@ abstract class BaseController
     // Helper function to send a response
     protected function sendResponse(array $data) {
         header('Content-Type: application/json');
-
         switch($data[ApiResponse::POS_STATUS]){
             case ApiResponse::STATUS_SUCCESS:
                 http_response_code(200);
@@ -81,6 +80,11 @@ abstract class BaseController
             case ApiResponse::STATUS_SUCCESS_NOT_FOUND:
                 http_response_code(404);
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'Resource not found';
+                echo json_encode(['error' => $message]);
+                break;
+            case ApiResponse::STATUS_ERROR_CONFLICT:
+                http_response_code(409);
+                $message = $data[ApiResponse::POS_MESSAGE] ?? 'Conflict occurred';
                 echo json_encode(['error' => $message]);
                 break;
             default:

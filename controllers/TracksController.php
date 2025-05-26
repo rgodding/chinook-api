@@ -130,4 +130,19 @@ class TracksController extends BaseController
         }
     }
 
+    public function handleDelete()
+    {
+        switch (count($this->params)) {
+            case 1:
+                $id = $this->params[0];
+                $this->validateId($id);
+                $response = $this->model->delete((int)$id);
+                $this->sendResponse($response);
+                break;
+            default:
+                $this->sendErrorResponse('Invalid number of parameters', 400);
+                exit;
+        }
+    }
+
 }

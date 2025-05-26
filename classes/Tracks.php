@@ -247,5 +247,40 @@ class Tracks extends DB
             ];
         }
     }
+
+    function delete(int $id): array
+    {
+        $sql = <<<SQL
+            DELETE FROM TRACK
+            WHERE TrackId = :id
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            if ($stmt->rowCount() === 0) {
+                return [
+                    ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NOT_FOUND,
+                    ApiResponse::POS_MESSAGE => 'No track found with this ID (' . $id . ')'
+                ];
+            }
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
+                ApiResponse::POS_MESSAGE => 'Track deleted successfully'
+            ];
+        } catch (PDOException $e) {
+            if ($e->getCode() === '23000') {
+                // Foreign key constraint violation
+                return [
+                    ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
+                    ApiResponse::POS_MESSAGE => 'Cannot delete track, it is referenced by other records'
+                ];
+            }
+            logError("Error deleting track: " . $e->getMessage());
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error deleting track'
+            ];
+        }
+    }
     
 }

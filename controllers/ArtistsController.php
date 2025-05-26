@@ -75,18 +75,18 @@ class ArtistsController extends BaseController
         }
     }
 
-    public function handlePut()
-    {
-        echo 'Handling PUT request for Artists';
-    }
-
-    public function handlePatch()
-    {
-        echo 'Handling PATCH request for Artists';
-    }
-
     public function handleDelete()
     {
-        echo 'Handling DELETE request for Artists';
+        switch (count($this->params)) {
+            case 1:
+                $id = $this->params[0];
+                $this->validateId($id);
+                $response = $this->model->delete((int)$id);
+                $this->sendResponse($response);
+                break;
+            default:
+                $this->sendErrorResponse('Invalid number of parameters', 400);
+                exit;
+        }
     }
 }

@@ -141,6 +141,7 @@ class Albums extends DB
             ];
 
         } catch (PDOException $e) {
+            logError('Error creating album: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error creating album'
@@ -173,9 +174,41 @@ class Albums extends DB
                 ]
             ];
         } catch (PDOException $e) {
+            logError('Error updating album: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error updating album'
+            ];
+        }
+    }
+
+    function delete(int $id): array
+    {
+        $sql = <<<SQL
+            DELETE FROM album
+            WHERE AlbumId = :id
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
+                ApiResponse::POS_MESSAGE => 'Album deleted successfully'
+            ];
+        } catch (PDOException $e) {
+            if( $e->getCode() === '23000') {
+                logError('Error deleting album: ' . $e->getMessage());
+                return [
+                    ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
+                    ApiResponse::POS_MESSAGE => 'Cannot delete album, it is referenced by other records'
+                ];
+            }
+            logError('Error deleting album: ' . $e->getMessage());
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error deleting album'
             ];
         }
     }
