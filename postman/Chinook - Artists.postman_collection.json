@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "b6678414-0fb2-4f6c-867e-6a37f4a7f64b",
+		"name": "Chinook - Artists",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23258708"
+	},
+	"item": [
+		{
+			"name": "Artists: Get All",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artists: Search",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}?s=een",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}"
+					],
+					"query": [
+						{
+							"key": "s",
+							"value": "een"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artists: Get By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 or 404\", function () {\r",
+							"    pm.expect([200, 404]).to.include(pm.response.code);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}/2",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artists: Get Albums by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 or 404\", function () {\r",
+							"    pm.expect([200, 404]).to.include(pm.response.code);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}/2/{{ALBUMS}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}",
+						"2",
+						"{{ALBUMS}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artists: Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201, 400 or 409\", function () {\r",
+							"    pm.expect([201, 400, 409]).to.include(pm.response.code);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test Artist\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Artists: Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204, 404 or 409\", function () {\r",
+							"    pm.expect([204, 404, 409]).to.include(pm.response.code);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/{{ARTISTS}}/2",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{ARTISTS}}",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
