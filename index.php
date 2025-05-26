@@ -5,7 +5,7 @@ require_once 'init.php';
 $urlData = getUrlData();
 
 // Configure the API's response headers
-switch($urlData[Constants::ENTITY]) {
+switch ($urlData[Constants::ENTITY]) {
     case Constants::ENTITY_ARTISTS:
         require_once BASE_PATH . '/controllers/ArtistsController.php';
         $controller = new ArtistsController($urlData);
@@ -31,8 +31,10 @@ switch($urlData[Constants::ENTITY]) {
         $controller = new PlaylistsController($urlData);
         break;
     default:
+        echo json_encode([
+            ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+            ApiResponse::POS_MESSAGE => 'Invalid entity specified'
+        ]);
         //sendResponse(400, 'Invalid entity specified');
         exit;
-        
-        
 }
