@@ -1,0 +1,6 @@
+# Turn on the rewrite function
+RewriteEngine On
+# Prevent rewriting existing files
+RewriteCond %{REQUEST_FILENAME} !-f
+# Send everything to index.php, and preserve query string
+RewriteRule ^ index.php [QSA,L]
