@@ -1,8 +1,9 @@
 # Use official PHP image with Apache
 FROM php:8.2-apache
 
-# Installer pdo_mysql extension
-RUN docker-php-ext-install pdo_mysql
+# Installer nødvendige pakker til PostgreSQL og pdo_mysql og pdo_pgsql extensions
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo_mysql pdo_pgsql
 
 # Enable mod_rewrite for Apache (common for routing)
 RUN a2enmod rewrite
