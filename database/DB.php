@@ -8,7 +8,6 @@ Class DB extends DBCredentials
 
     public function __construct()
     {
-        parent::__construct(); // Initialize credentials from DBCredentials
         $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
