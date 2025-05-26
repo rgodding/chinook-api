@@ -107,7 +107,34 @@ class Artists extends DB
                 ApiResponse::POS_MESSAGE => 'Failed to fetch albums for artist',
             ];
         }
-        
+    }
+
+    public function create(string $name): array
+    {
+        $sql = <<<SQL
+            INSERT INTO Artist (Name)
+            VALUES (:name)
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':name' =>  $name
+            ]);
+            $artistId = $this->pdo->lastInsertId();
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
+                ApiResponse::POS_MESSAGE => 'Artist created successfully',
+                ApiResponse::POS_DATA => [
+                    'ArtistId' => $artistId,
+                    'Name' => $name
+                ]
+            ];
+        } catch (PDOException $e) {
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error creating artist'
+            ];
+        }
     }
 }
 

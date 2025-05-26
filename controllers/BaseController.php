@@ -118,4 +118,17 @@ abstract class BaseController
         }
     }
 
+    protected function getRequestBody(): array {
+        $body = file_get_contents('php://input');
+        if (empty($body)) {
+            return [];
+        }
+        $data = json_decode($body, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $this->sendErrorResponse('Invalid JSON format', 400, ['error' => json_last_error_msg()]);
+            exit;
+        }
+        return $data;
+    }
+
 }

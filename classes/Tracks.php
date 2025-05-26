@@ -118,5 +118,74 @@ class Tracks extends DB
         }
     }
 
+    function create(
+        string $name,
+        int $albumId,
+        int $mediaTypeId,
+        int $genreId,
+        string $composer,
+        int $milliseconds,
+        int $bytes,
+        float $unitPrice
+    ): array {
+        $sql = <<<SQL
+            INSERT INTO TRACK (
+                Name, 
+                AlbumId, 
+                MediaTypeId, 
+                GenreId, 
+                Composer, 
+                Milliseconds, 
+                Bytes, 
+                UnitPrice
+            ) VALUES (
+                :name, 
+                :albumId, 
+                :mediaTypeId, 
+                :genreId, 
+                :composer, 
+                :milliseconds, 
+                :bytes, 
+                :unitPrice
+            )
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':name' => $name,
+                ':albumId' => $albumId,
+                ':mediaTypeId' => $mediaTypeId,
+                ':genreId' => $genreId,
+                ':composer' => $composer,
+                ':milliseconds' => $milliseconds,
+                ':bytes' => $bytes,
+                ':unitPrice' => $unitPrice
+            ]);
+            $trackId = $this->pdo->lastInsertId();
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
+                ApiResponse::POS_MESSAGE => 'Track created successfully',
+                ApiResponse::POS_DATA => [
+                    'TrackId' => $trackId,
+                    'Name' => $name,
+                    'AlbumId' => $albumId,
+                    'MediaTypeId' => $mediaTypeId,
+                    'GenreId' => $genreId,
+                    'Composer' => $composer,
+                    'Milliseconds' => $milliseconds,
+                    'Bytes' => $bytes,
+                    'UnitPrice' => $unitPrice
+                ]
+            ];
+
+        } catch (PDOException $e) {
+            error_log("Error creating track: " . $e->getMessage());
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error creating track'
+            ];
+        }
+    }
+
     
 }

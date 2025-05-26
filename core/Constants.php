@@ -30,6 +30,19 @@ class Constants {
     public const ACTION_ALBUMS = 'albums';
     public const ACTION_TRACKS = 'tracks';
 
+    // JSON Parameters
+    public const JSON_ARTIST_ID = 'artist_id';
+    public const JSON_TITLE = 'title';
+    public const JSON_NAME = 'name';
+    public const JSON_ALBUM_ID = 'album_id';
+    public const JSON_MEDIA_TYPE_ID = 'media_type_id';
+    public const JSON_GENRE_ID = 'genre_id';
+    public const JSON_COMPOSER = 'composer';
+    public const JSON_MILLISECONDS = 'milliseconds';
+    public const JSON_BYTES = 'bytes';
+    public const JSON_UNIT_PRICE = 'unit_price';
+
+
 
     
 }

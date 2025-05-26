@@ -116,5 +116,37 @@ class Albums extends DB
             ];
         }
     }
+
+    function create(string $title, int $artistId): array
+    {
+        $sql = <<<SQL
+            INSERT INTO album (Title, ArtistId)
+            VALUES (:title, :artistId)
+        SQL;
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':title' => $title,
+                ':artistId' => $artistId
+            ]);
+            $albumId = $this->pdo->lastInsertId();
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
+                ApiResponse::POS_MESSAGE => 'Album created successfully',
+                ApiResponse::POS_DATA => [
+                    'AlbumId' => $albumId,
+                    'Title' => $title,
+                    'ArtistId' => $artistId
+                ]
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
+                ApiResponse::POS_MESSAGE => 'Error creating album'
+            ];
+        }
+
+    }
 }
 

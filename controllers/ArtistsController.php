@@ -58,7 +58,21 @@ class ArtistsController extends BaseController
     }
     public function handlePost()
     {
-        echo 'Handling POST request for Artists';
+        switch (count($this->params)) {
+            case 0:
+                $data = $this->getRequestBody();
+                $name = $data[Constants::JSON_NAME] ?? null;
+                if (is_null($name)) {
+                    $this->sendErrorResponse('Missing required parameters', 400);
+                    exit;
+                }
+                $response = $this->model->create($name);
+                $this->sendResponse($response);
+                break;
+            default:
+                $this->sendErrorResponse('Invalid number of parameters', 400);
+                exit;
+        }
     }
 
     public function handlePut()
