@@ -9,7 +9,7 @@ class DBCredentials
 
     public function __construct()
     {
-        $dotenvPath = BASE_PATH . '../.env';
+        $dotenvPath = BASE_PATH . '../../.env';
         $dotenvPathLocal = BASE_PATH . '/.env';
         if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
             throw new Exception('.env file not found');
