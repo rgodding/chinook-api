@@ -12,6 +12,7 @@ class AlbumsController extends BaseController
 
     public function handleGet()
     {
+        echo "Handling GET request for AlbumsController\n";
         switch (count($this->params)) {
             case 0:
                 if (!empty($this->query[Constants::QUERY_SEARCH])){
@@ -29,6 +30,7 @@ class AlbumsController extends BaseController
                 $this->sendResponse($response);
                 break;
             case 2: 
+                echo "Handling GET request with two parameters\n";
                 $id = $this->params[0];
                 $this->validateId($id);
                 $action = $this->params[1];
