@@ -9,13 +9,11 @@ class DBCredentials
 
     public function __construct()
     {
-        $envPath = dirname(__DIR__) . '/.env';
-
-        if (!file_exists($envPath)) {
-            throw new Exception(".env file not found at: $envPath");
+        $dotenvPath = BASE_PATH . '../.env';
+        $dotenvPathLocal = BASE_PATH . '/.env';
+        if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
+            throw new Exception('.env file not found');
         }
-
-        $env = parse_ini_file($envPath);
 
         $this->host = $env['DB_HOST'] ?? throw new Exception('DB_HOST missing in .env');
         $this->dbname = $env['DB_NAME'] ?? throw new Exception('DB_NAME missing in .env');
