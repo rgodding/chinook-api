@@ -129,7 +129,7 @@ class Tracks extends DB
         float $unitPrice
     ): array {
         $sql = <<<SQL
-            INSERT INTO TRACK (
+            INSERT INTO Track (
                 Name, 
                 AlbumId, 
                 MediaTypeId, 
