@@ -88,7 +88,11 @@ abstract class BaseController
                 echo json_encode(['error' => $message]);
                 break;
             default:
-                echo "SHOULD NOT REACH HERE";
+            echo json_encode([
+                'error' => [
+                    'code' => $data[ApiResponse::POS_STATUS],
+                    'message' => $data[ApiResponse::POS_MESSAGE] ?? 'An error occurred'
+                ]]);
         }
         exit;
     }
