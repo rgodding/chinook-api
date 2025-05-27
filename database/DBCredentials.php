@@ -1,4 +1,5 @@
 <?php
+require_once BASE_PATH . '/utils/parseEnvFile.php';
 
 class DBCredentials
 {
@@ -10,12 +11,24 @@ class DBCredentials
     public function __construct()
     {
         echo "Loading database credentials...\n";
-        $dotenvPath = BASE_PATH . '../../.env';
+        $dotenvPath = __DIR__ . '/../../../.env';
         $dotenvPathLocal = BASE_PATH . '/.env';
         if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
             throw new Exception('.env file not found');
         }
         echo "okay, .env file found\n";
+        $env = parseEnvFile(file_exists($dotenvPath) ? $dotenvPath : $dotenvPathLocal);
+        echo "okay, .env file parsed\n";
+        if (empty($env)) {
+            throw new Exception('No environment variables found in .env file');
+        }
+
+        echo "okay, environment variables loaded\n";
+        echo "Name: " . ($env['DB_NAME'] ?? 'not set') . "\n";
+        echo "Host: " . ($env['DB_HOST'] ?? 'not set') . "\n";
+        echo "User: " . ($env['DB_USER'] ?? 'not set') . "\n";
+        
+
 
         $this->host = $env['DB_HOST'] ?? throw new Exception('DB_HOST missing in .env');
         $this->dbname = $env['DB_NAME'] ?? throw new Exception('DB_NAME missing in .env');
