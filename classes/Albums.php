@@ -96,8 +96,8 @@ class Albums extends DB
             track.Bytes,
             track.UnitPrice
             FROM Track
-            JOIN mediatype ON track.MediaTypeId = MediaType.MediaTypeId
-            JOIN genre ON track.GenreId = genre.GenreId
+            JOIN MediaType ON track.MediaTypeId = MediaType.MediaTypeId
+            JOIN Genre ON track.GenreId = genre.GenreId
             WHERE track.AlbumId = :id
         SQL;
         try {
@@ -123,7 +123,7 @@ class Albums extends DB
     function create(string $title, int $artistId): array
     {
         $sql = <<<SQL
-            INSERT INTO album (Title, ArtistId)
+            INSERT INTO Album (Title, ArtistId)
             VALUES (:title, :artistId)
         SQL;
         try {
@@ -156,7 +156,7 @@ class Albums extends DB
     function update(int $id, string $title, int $artistId): array
     {
         $sql = <<<SQL
-            UPDATE album
+            UPDATE Album
             SET Title = :title, ArtistId = :artistId
             WHERE AlbumId = :id
         SQL;
