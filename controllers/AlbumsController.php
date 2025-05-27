@@ -39,6 +39,7 @@ class AlbumsController extends BaseController
                     $album = $this->model->get((int)$id);
                     echo "Album data: " . json_encode($album) . "\n";
                     if ($album[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
+                        echo "Album not found, sending error response\n";
                         $this->sendResponse($album);
                     }
                     echo "Album found, fetching tracks...\n";
