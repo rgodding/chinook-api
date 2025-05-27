@@ -50,7 +50,7 @@ class Artists extends DB
         }
     }
 
-    public function getById(int $id): array
+    public function get(int $id): array
     {
         $sql = <<<SQL
             SELECT *

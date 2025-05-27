@@ -10,14 +10,14 @@ class Tracks extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
+            mediatype.MediaTypeId,
+            mediatype.Name AS MediaTypeName,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             Track.Composer,
             Track.Milliseconds,
             Track.Bytes,
-            Track.UnitPrice,
-            Genre.GenreId,
-            Genre.Name AS GenreName,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName
+            Track.UnitPrice
             FROM Track
             JOIN genre ON Track.GenreId = Genre.GenreId
             JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
@@ -46,14 +46,14 @@ class Tracks extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
+            mediatype.MediaTypeId,
+            mediatype.Name AS MediaTypeName,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             Track.Composer,
             Track.Milliseconds,
             Track.Bytes,
-            Track.UnitPrice,
-            Genre.GenreId,
-            Genre.Name AS GenreName,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName
+            Track.UnitPrice
             FROM Track
             JOIN genre ON Track.GenreId = Genre.GenreId
             JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId

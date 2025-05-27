@@ -6,9 +6,13 @@ class Albums extends DB
 {
     public function list(): array
     {
+        // Include 
         $sql = <<<SQL
-            SELECT *
+            SELECT 
+            Album.*,
+            Artist.Name AS ArtistName
             FROM Album
+            JOIN Artist ON Album.ArtistId = Artist.ArtistId
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -28,7 +32,7 @@ class Albums extends DB
 
     function search(string $query){
         $sql = <<<SQL
-            SELECT *
+            SELECT *,
             FROM Album
             WHERE Title LIKE :query
         SQL;
@@ -53,8 +57,11 @@ class Albums extends DB
     public function get(int $id): array
     {
         $sql = <<<SQL
-            SELECT *
+            SELECT 
+            Album.*,
+            Artist.Name AS ArtistName
             FROM Album
+            JOIN Artist ON Album.ArtistId = Artist.ArtistId
             WHERE albumId = :id
         SQL;
         try {
@@ -88,6 +95,8 @@ class Albums extends DB
             SELECT 
             Track.TrackId,
             Track.Name AS TrackName,
+            Track.MediaTypeId,
+            MediaType.Name AS MediaTypeName,
             Track.GenreId,
             Genre.Name AS GenreName,
             Track.Composer,

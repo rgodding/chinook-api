@@ -8,3 +8,22 @@
 [2025-05-26 19:44:24] [ERROR] Error deleting album: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`chinook_autoincrement`.`track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `album` (`AlbumId`))
 [2025-05-26 19:44:31] [ERROR] Error deleting album: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`chinook_autoincrement`.`track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `album` (`AlbumId`))
 [2025-05-26 20:07:19] [ERROR] Error deleting album: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`chinook_autoincrement`.`track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `album` (`AlbumId`))
+[2025-05-27 06:01:57] [ERROR] Failed to search albums: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN Artist ON Album.ArtistId = Artist.ArtistId' at line 5
+[2025-05-27 06:03:46] [ERROR] Failed to fetch album by ID: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM Album
+    WHERE albumId = '1'' at line 2
+[2025-05-27 06:03:47] [ERROR] Failed to fetch album by ID: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM Album
+    WHERE albumId = '1'' at line 2
+[2025-05-27 06:03:48] [ERROR] Failed to fetch album by ID: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM Album
+    WHERE albumId = '1'' at line 2
+[2025-05-27 06:10:31] [ERROR] Error deleting album: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`chinook_autoincrement`.`track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `album` (`AlbumId`))
+[2025-05-27 06:13:24] [ERROR] Error searching tracks: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Genre.GenreId,
+    Genre.Name AS GenreName,
+    Track.Composer,
+    Track.Mil' at line 6
+[2025-05-27 06:13:27] [ERROR] Error searching tracks: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Genre.GenreId,
+    Genre.Name AS GenreName,
+    Track.Composer,
+    Track.Mil' at line 6
+[2025-05-27 06:15:59] [ERROR] Error searching tracks by composer: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM Track
+    JOIN genre ON Track.GenreId = Genre.GenreId
+    JOIN mediatype ' at line 13

@@ -75,7 +75,7 @@ class AlbumsController extends BaseController
             case 1:
                 $id = $this->params[0];
                 $this->validateId($id);
-                $albumData = $this->model->getById((int)$id);
+                $albumData = $this->model->get((int)$id);
                 if ($albumData[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                     $this->sendResponse($albumData);
                 }

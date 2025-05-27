@@ -28,7 +28,7 @@ class ArtistsController extends BaseController
             case 1:
                 $id = $this->params[0];
                 $this->validateId($id);
-                $response = $this->model->getById((int)$id);
+                $response = $this->model->get((int)$id);
                 $this->sendResponse($response);
                 break;
             // Get Albums by Artist ID
@@ -39,7 +39,7 @@ class ArtistsController extends BaseController
                 // Validate action
                 if ($action === Constants::ACTION_ALBUMS) {
                     // Check if artist exists
-                    $artist = $this->model->getById((int)$id);
+                    $artist = $this->model->get((int)$id);
                     if ($artist[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                         $this->sendResponse($artist);
                     }

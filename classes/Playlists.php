@@ -95,14 +95,14 @@ class Playlists extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
+            mediatype.MediaTypeId,
+            mediatype.Name AS MediaTypeName,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             Track.Composer,
             Track.Milliseconds,
             Track.Bytes,
-            Track.UnitPrice,
-            Genre.GenreId,
-            Genre.Name AS GenreName,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName
+            Track.UnitPrice
             FROM Playlisttrack
             JOIN Track ON PlaylistTrack.TrackId = Track.TrackId
             JOIN genre ON Track.GenreId = Genre.GenreId
