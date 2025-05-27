@@ -9,11 +9,13 @@ class DBCredentials
 
     public function __construct()
     {
+        echo "Loading database credentials...\n";
         $dotenvPath = BASE_PATH . '../../.env';
         $dotenvPathLocal = BASE_PATH . '/.env';
         if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
             throw new Exception('.env file not found');
         }
+        echo "okay, .env file found\n";
 
         $this->host = $env['DB_HOST'] ?? throw new Exception('DB_HOST missing in .env');
         $this->dbname = $env['DB_NAME'] ?? throw new Exception('DB_NAME missing in .env');
