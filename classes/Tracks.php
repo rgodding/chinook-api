@@ -199,7 +199,7 @@ class Tracks extends DB
         float $unitPrice
     ): array {
         $sql = <<<SQL
-            UPDATE TRACK
+            UPDATE Track
             SET 
                 Name = :name, 
                 AlbumId = :albumId, 
@@ -251,7 +251,7 @@ class Tracks extends DB
     function delete(int $id): array
     {
         $sql = <<<SQL
-            DELETE FROM TRACK
+            DELETE FROM Track
             WHERE TrackId = :id
         SQL;
         try {
