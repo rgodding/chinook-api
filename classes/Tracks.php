@@ -8,20 +8,20 @@ class Tracks extends DB
     {
         $sql = <<<SQL
             SELECT 
-            track.TrackId,
-            track.Name,
-            track.Composer,
-            track.Milliseconds,
-            track.Bytes,
-            track.UnitPrice,
-            genre.GenreId,
-            genre.Name AS GenreName,
+            Track.TrackId,
+            Track.Name,
+            Track.Composer,
+            Track.Milliseconds,
+            Track.Bytes,
+            Track.UnitPrice,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
             FROM Track
-            JOIN genre ON track.GenreId = genre.GenreId
-            JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
-            WHERE track.Name LIKE :search
+            JOIN genre ON Track.GenreId = Genre.GenreId
+            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            WHERE Track.Name LIKE :search
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -44,20 +44,20 @@ class Tracks extends DB
     {
         $sql = <<<SQL
             SELECT 
-            track.TrackId,
-            track.Name,
-            track.Composer,
-            track.Milliseconds,
-            track.Bytes,
-            track.UnitPrice,
-            genre.GenreId,
-            genre.Name AS GenreName,
+            Track.TrackId,
+            Track.Name,
+            Track.Composer,
+            Track.Milliseconds,
+            Track.Bytes,
+            Track.UnitPrice,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
             FROM Track
-            JOIN genre ON track.GenreId = genre.GenreId
-            JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
-            WHERE track.Composer LIKE :composer
+            JOIN genre ON Track.GenreId = Genre.GenreId
+            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            WHERE Track.Composer LIKE :composer
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -80,20 +80,20 @@ class Tracks extends DB
     {
         $sql = <<<SQL
             SELECT 
-            track.TrackId,
-            track.Name,
-            track.Composer,
-            track.Milliseconds,
-            track.Bytes,
-            track.UnitPrice,
-            genre.GenreId,
-            genre.Name AS GenreName,
+            Track.TrackId,
+            Track.Name,
+            Track.Composer,
+            Track.Milliseconds,
+            Track.Bytes,
+            Track.UnitPrice,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
             FROM Track
-            JOIN genre ON track.GenreId = genre.GenreId
-            JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
-            WHERE track.TrackId = :id
+            JOIN genre ON Track.GenreId = Genre.GenreId
+            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            WHERE Track.TrackId = :id
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);

@@ -87,14 +87,14 @@ class Albums extends DB
         echo "Fetching tracks for album ID: " . $id . "\n";
         $sql = <<<SQL
             SELECT 
-            track.TrackId,
-            track.Name AS TrackName,
-            track.GenreId,
-            genre.Name AS GenreName,
-            track.Composer,
-            track.Milliseconds,
-            track.Bytes,
-            track.UnitPrice
+            Track.TrackId,
+            Track.Name AS TrackName,
+            Track.GenreId,
+            Genre.Name AS GenreName,
+            Track.Composer,
+            Track.Milliseconds,
+            Track.Bytes,
+            Track.UnitPrice
             FROM Track
             JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
             JOIN Genre ON Track.GenreId = Genre.GenreId

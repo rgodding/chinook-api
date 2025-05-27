@@ -93,21 +93,21 @@ class Playlists extends DB
         // Get tracks in a specific playlist by ID
         $sql = <<<SQL
             SELECT 
-            track.TrackId,
-            track.Name,
-            track.Composer,
-            track.Milliseconds,
-            track.Bytes,
-            track.UnitPrice,
-            genre.GenreId,
-            genre.Name AS GenreName,
+            Track.TrackId,
+            Track.Name,
+            Track.Composer,
+            Track.Milliseconds,
+            Track.Bytes,
+            Track.UnitPrice,
+            Genre.GenreId,
+            Genre.Name AS GenreName,
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
             FROM Playlisttrack
-            JOIN track ON playlisttrack.TrackId = track.TrackId
-            JOIN genre ON track.GenreId = genre.GenreId
-            JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
-            WHERE playlisttrack.PlaylistId = :id
+            JOIN track ON playlistTrack.TrackId = Track.TrackId
+            JOIN genre ON Track.GenreId = Genre.GenreId
+            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            WHERE playlistTrack.PlaylistId = :id
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
