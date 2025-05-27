@@ -8,8 +8,8 @@ class Playlists extends DB
     {
         $sql = <<<SQL
             SELECT 
-            playlist.PlaylistId,
-            playlist.Name
+            Playlist.PlaylistId,
+            Playlist.Name
             FROM Playlist
         SQL;
         try {
@@ -20,10 +20,10 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error listing playlists: " . $e->getMessage());
+            logError("Error listing Playlists: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error listing playlists'
+                ApiResponse::POS_MESSAGE => 'Error listing Playlists'
             ];
         }
     }
@@ -32,10 +32,10 @@ class Playlists extends DB
     {
         $sql = <<<SQL
             SELECT 
-            playlist.PlaylistId,
-            playlist.Name
+            Playlist.PlaylistId,
+            Playlist.Name
             FROM Playlist
-            WHERE playlist.Name LIKE :search
+            WHERE Playlist.Name LIKE :search
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -46,23 +46,23 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error searching playlists: " . $e->getMessage());
+            logError("Error searching Playlists: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error searching playlists'
+                ApiResponse::POS_MESSAGE => 'Error searching Playlists'
             ];
         }
     }
 
     function get(int $id): array
     {
-        // Get a specific playlist by ID, including tracks
+        // Get a specific Playlist by ID, including tracks
         $sql = <<<SQL
             SELECT 
-            playlist.PlaylistId,
-            playlist.Name
+            Playlist.PlaylistId,
+            Playlist.Name
             FROM Playlist
-            WHERE playlist.PlaylistId = :id
+            WHERE Playlist.PlaylistId = :id
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -72,7 +72,7 @@ class Playlists extends DB
             if(!$result) {
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NOT_FOUND,
-                    ApiResponse::POS_MESSAGE => 'No playlist found with ID (' . $id . ')'
+                    ApiResponse::POS_MESSAGE => 'No Playlist found with ID (' . $id . ')'
                 ];
             }
             return [
@@ -80,17 +80,17 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $result
             ];
         } catch (PDOException $e) {
-            logError("Error getting playlist: " . $e->getMessage());
+            logError("Error getting Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error getting playlist'
+                ApiResponse::POS_MESSAGE => 'Error getting Playlist'
             ];
         }
     }
 
     function getTracks(int $id): array
     {
-        // Get tracks in a specific playlist by ID
+        // Get tracks in a specific Playlist by ID
         $sql = <<<SQL
             SELECT 
             Track.TrackId,
@@ -104,10 +104,10 @@ class Playlists extends DB
             mediatype.MediaTypeId,
             mediatype.Name AS MediaTypeName
             FROM Playlisttrack
-            JOIN track ON playlistTrack.TrackId = Track.TrackId
+            JOIN Track ON PlaylistTrack.TrackId = Track.TrackId
             JOIN genre ON Track.GenreId = Genre.GenreId
             JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
-            WHERE playlistTrack.PlaylistId = :id
+            WHERE PlaylistTrack.PlaylistId = :id
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -118,10 +118,10 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error getting tracks for playlist: " . $e->getMessage());
+            logError("Error getting tracks for Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error getting tracks for playlist'
+                ApiResponse::POS_MESSAGE => 'Error getting tracks for Playlist'
             ];
         }
     }
@@ -129,7 +129,7 @@ class Playlists extends DB
     function create(string $name): array
     {
         $sql = <<<SQL
-            INSERT INTO playlist (Name)
+            INSERT INTO Playlist (Name)
             VALUES (:name)
         SQL;
         try {
@@ -146,10 +146,10 @@ class Playlists extends DB
                 ]
             ];
         } catch (PDOException $e) {
-            logError("Error creating playlist: " . $e->getMessage());
+            logError("Error creating Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error creating playlist'
+                ApiResponse::POS_MESSAGE => 'Error creating Playlist'
             ];
         }
     }
@@ -157,7 +157,7 @@ class Playlists extends DB
     function addTrack($playlistId, $trackId): array
     {
         $sql = <<<SQL
-            INSERT INTO playlisttrack (PlaylistId, TrackId)
+            INSERT INTO PlaylistTrack (PlaylistId, TrackId)
             VALUES (:playlistId, :trackId)
         SQL;
         try {
@@ -167,7 +167,7 @@ class Playlists extends DB
             $stmt->execute();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
-                ApiResponse::POS_MESSAGE => 'Track added to playlist successfully',
+                ApiResponse::POS_MESSAGE => 'Track added to Playlist successfully',
                 ApiResponse::POS_DATA => [
                     'PlaylistId' => $playlistId,
                     'TrackId' => $trackId
@@ -178,13 +178,13 @@ class Playlists extends DB
                 // Duplicate entry error
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
-                    ApiResponse::POS_MESSAGE => 'Track already exists in playlist'
+                    ApiResponse::POS_MESSAGE => 'Track already exists in Playlist'
                 ];
             }
-            logError("Error adding track to playlist: " . $e->getMessage());
+            logError("Error adding Track to Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error adding track to playlist'
+                ApiResponse::POS_MESSAGE => 'Error adding Track to Playlist'
             ];
         }
     }
@@ -192,7 +192,7 @@ class Playlists extends DB
     function removeTrack($playlistId, $trackId): array
     {
         $sql = <<<SQL
-            DELETE FROM Playlisttrack 
+            DELETE FROM PlaylistTrack 
             WHERE PlaylistId = :playlistId AND TrackId = :trackId
         SQL;
         try {
@@ -202,20 +202,20 @@ class Playlists extends DB
             $stmt->execute();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
-                ApiResponse::POS_MESSAGE => 'Track removed from playlist successfully'
+                ApiResponse::POS_MESSAGE => 'Track removed from Playlist successfully'
             ];
         } catch (PDOException $e) {
-            logError("Error removing track from playlist: " . $e->getMessage());
+            logError("Error removing Track from Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error removing track from playlist'
+                ApiResponse::POS_MESSAGE => 'Error removing Track from Playlist'
             ];
         }
     }
 
     function delete(int $id): array
     {
-        // Delete a playlist by ID
+        // Delete a Playlist by ID
         $sql = <<<SQL
             DELETE FROM Playlist 
             WHERE PlaylistId = :id
@@ -232,13 +232,13 @@ class Playlists extends DB
                 // Foreign key constraint violation
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
-                    ApiResponse::POS_MESSAGE => 'Cannot delete playlist with existing tracks'
+                    ApiResponse::POS_MESSAGE => 'Cannot delete Playlist with existing tracks'
                 ];
             }
-            logError("Error deleting playlist: " . $e->getMessage());
+            logError("Error deleting Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
-                ApiResponse::POS_MESSAGE => 'Error deleting playlist'
+                ApiResponse::POS_MESSAGE => 'Error deleting Playlist'
             ];
         }
     }

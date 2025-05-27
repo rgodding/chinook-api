@@ -103,7 +103,7 @@ class Tracks extends DB
             if (!$result) {
                 return [
                     ApiResponse::POS_STATUS =>  ApiResponse::STATUS_SUCCESS_NOT_FOUND,
-                    ApiResponse::POS_MESSAGE => 'No track found with this ID (' . $id . ')'
+                    ApiResponse::POS_MESSAGE => 'No Track found with this ID (' . $id . ')'
                 ];
             }
             return [
@@ -260,7 +260,7 @@ class Tracks extends DB
             if ($stmt->rowCount() === 0) {
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NOT_FOUND,
-                    ApiResponse::POS_MESSAGE => 'No track found with this ID (' . $id . ')'
+                    ApiResponse::POS_MESSAGE => 'No Track found with this ID (' . $id . ')'
                 ];
             }
             return [
