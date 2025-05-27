@@ -139,7 +139,7 @@ class Playlists extends DB
             $playlistId = $this->pdo->lastInsertId();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
-                ApiResponse::POS_MESSAGE => 'Playlist created successfully',
+                ApiResponse::POS_MESSAGE => 'Playlist ID:(' . $playlistId . ') created successfully',
                 ApiResponse::POS_DATA => [
                     'PlaylistId' => $playlistId,
                     'Name' => $name
@@ -167,7 +167,7 @@ class Playlists extends DB
             $stmt->execute();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
-                ApiResponse::POS_MESSAGE => 'Track added to Playlist successfully',
+                ApiResponse::POS_MESSAGE => 'Track (TrackId: ' . $trackId . ') added to Playlist (PlaylistId: ' . $playlistId . ') successfully',
                 ApiResponse::POS_DATA => [
                     'PlaylistId' => $playlistId,
                     'TrackId' => $trackId
@@ -202,7 +202,7 @@ class Playlists extends DB
             $stmt->execute();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
-                ApiResponse::POS_MESSAGE => 'Track removed from Playlist successfully'
+                ApiResponse::POS_MESSAGE => 'Track (TrackId: ' . $trackId . ') removed from Playlist (PlaylistId: ' . $playlistId . ') successfully'
             ];
         } catch (PDOException $e) {
             logError("Error removing Track from Playlist: " . $e->getMessage());
@@ -225,7 +225,7 @@ class Playlists extends DB
             $stmt->execute([':id' => $id]);
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
-                ApiResponse::POS_MESSAGE => 'Playlist deleted successfully'
+                ApiResponse::POS_MESSAGE => 'Playlist ID:(' . $id . ') deleted successfully'
             ];
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {

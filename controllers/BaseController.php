@@ -4,9 +4,11 @@ abstract class BaseController
 {
     protected array $params;
     protected array $query;
+    protected string $entity;
     protected object $model;
 
     public function __construct(array $urlData) {   
+        $this->entity = $urlData[Constants::ENTITY] ?? '';
         $this->params = $urlData[Constants::PARAMS] ?? [];
         $this->query = $_GET; // Capture query parameters if needed
         $this->initialize($urlData[Constants::METHOD] ?? Constants::METHOD_GET);
@@ -71,11 +73,15 @@ abstract class BaseController
             case ApiResponse::STATUS_SUCCESS_CREATED:
                 http_response_code(201);
                 $response = $data[ApiResponse::POS_DATA];
+                $message = 'Created successfully ' . json_encode($response);
+                logMessage($message, strtoupper($this->entity), 201, 'INFO'); 
                 echo json_encode($response);
                 break;
             case ApiResponse::STATUS_SUCCESS_NO_CONTENT:
                 http_response_code(204);
                 // No content to return
+                $message = $data[ApiResponse::POS_MESSAGE] ?? 'No content';
+                logMessage($message, strtoupper($this->entity), 204, 'INFO');
                 break;
             case ApiResponse::STATUS_SUCCESS_NOT_FOUND:
                 http_response_code(404);
@@ -85,6 +91,13 @@ abstract class BaseController
             case ApiResponse::STATUS_ERROR_CONFLICT:
                 http_response_code(409);
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'Conflict occurred';
+                logMessage($message, strtoupper($this->entity), 409, 'ERROR');
+                echo json_encode(['error' => $message]);
+                break;
+            case ApiResponse::STATUS_ERROR:
+                http_response_code(500);
+                $message = $data[ApiResponse::POS_MESSAGE] ?? 'Internal server error';
+                logMessage($message, strtoupper($this->entity), 500, 'ERROR');
                 echo json_encode(['error' => $message]);
                 break;
             default:

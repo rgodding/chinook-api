@@ -141,7 +141,7 @@ class Albums extends DB
             $albumId = $this->pdo->lastInsertId();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
-                ApiResponse::POS_MESSAGE => 'Album created successfully',
+                ApiResponse::POS_MESSAGE => 'Album ID:(' . $albumId . ') created successfully',
                 ApiResponse::POS_DATA => [
                     'AlbumId' => $albumId,
                     'Title' => $title,
@@ -175,7 +175,7 @@ class Albums extends DB
             ]);
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS,
-                ApiResponse::POS_MESSAGE => 'Album updated successfully',
+                ApiResponse::POS_MESSAGE => 'Album ID:(' . $id . ') updated successfully',
                 ApiResponse::POS_DATA => [
                     'AlbumId' => $id,
                     'Title' => $title,
@@ -202,9 +202,15 @@ class Albums extends DB
             $stmt->execute([
                 ':id' => $id
             ]);
+            if ($stmt->rowCount() === 0) {
+                return [
+                    ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NOT_FOUND,
+                    ApiResponse::POS_MESSAGE => 'No album found with ID: ' . $id
+                ];
+            }
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_NO_CONTENT,
-                ApiResponse::POS_MESSAGE => 'Album deleted successfully'
+                ApiResponse::POS_MESSAGE => 'Album ID:(' . $id . ') deleted successfully'
             ];
         } catch (PDOException $e) {
             if( $e->getCode() === '23000') {

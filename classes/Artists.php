@@ -123,7 +123,7 @@ class Artists extends DB
             $artistId = $this->pdo->lastInsertId();
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS_CREATED,
-                ApiResponse::POS_MESSAGE => 'Artist created successfully',
+                ApiResponse::POS_MESSAGE => 'Artist ID:(' . $artistId . ') created successfully',
                 ApiResponse::POS_DATA => [
                     'ArtistId' => $artistId,
                     'Name' => $name
@@ -162,7 +162,7 @@ class Artists extends DB
                 // Foreign key constraint violation
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
-                    ApiResponse::POS_MESSAGE => 'Cannot delete artist with existing albums',
+                    ApiResponse::POS_MESSAGE => 'Artist ID:(' . $id . ') cannot be deleted due to existing albums',
                 ];
             }
             logError('Failed to delete artist: ' . $e->getMessage());
