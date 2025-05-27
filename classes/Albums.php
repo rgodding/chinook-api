@@ -96,9 +96,9 @@ class Albums extends DB
             track.Bytes,
             track.UnitPrice
             FROM Track
-            JOIN MediaType ON track.MediaTypeId = MediaType.MediaTypeId
-            JOIN Genre ON track.GenreId = genre.GenreId
-            WHERE track.AlbumId = :id
+            JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
+            JOIN Genre ON Track.GenreId = Genre.GenreId
+            WHERE Track.AlbumId = :id
         SQL;
         try {
             $stmt = $this->pdo->prepare($sql);
