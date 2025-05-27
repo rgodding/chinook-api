@@ -84,7 +84,6 @@ class Albums extends DB
 
     public function getTracks(int $id): array
     {
-        echo "Fetching tracks for album ID: " . $id . "\n";
         $sql = <<<SQL
             SELECT 
             Track.TrackId,
@@ -105,13 +104,11 @@ class Albums extends DB
             $stmt->execute([
                 ':id' => $id
             ]);
-            echo "getting tracks for album ID: " . $id . "\n";
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_SUCCESS,
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            echo "Error fetching tracks for album ID: " . $id . "\n";
             logError('Failed to fetch tracks for album ID ' . $id . ': ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,

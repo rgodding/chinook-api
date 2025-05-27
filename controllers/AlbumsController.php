@@ -40,7 +40,6 @@ class AlbumsController extends BaseController
                     $response = $this->model->getTracks((int)$id);
                     $this->sendResponse($response);
                 } else {
-                    echo "Invalid action: $action\n";
                     $this->sendErrorResponse('Invalid action', 400);
                     exit;
                 }
