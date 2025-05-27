@@ -95,7 +95,7 @@ class Albums extends DB
             track.Milliseconds,
             track.Bytes,
             track.UnitPrice
-            FROM track
+            FROM Track
             JOIN mediatype ON track.MediaTypeId = mediatype.MediaTypeId
             JOIN genre ON track.GenreId = genre.GenreId
             WHERE track.AlbumId = :id
