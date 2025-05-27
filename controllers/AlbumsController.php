@@ -41,7 +41,10 @@ class AlbumsController extends BaseController
                     if ($album[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                         $this->sendResponse($album);
                     }
+                    echo "Album found, fetching tracks...\n";
                     $response = $this->model->getTracks((int)$id);
+                    echo "Tracks data fetched successfully\n";
+                    echo "Tracks data: " . json_encode($response) . "\n";
                     $this->sendResponse($response);
                 } else {
                     echo "Invalid action: $action\n";
