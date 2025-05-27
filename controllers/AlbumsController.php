@@ -37,6 +37,7 @@ class AlbumsController extends BaseController
                 if ($action === Constants::ACTION_TRACKS) {
                     echo "Fetching tracks for album ID: $id\n";
                     $album = $this->model->get((int)$id);
+                    echo "Album data: " . json_encode($album) . "\n";
                     if ($album[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                         $this->sendResponse($album);
                     }
