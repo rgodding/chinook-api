@@ -35,6 +35,7 @@ class AlbumsController extends BaseController
                 $this->validateId($id);
                 $action = $this->params[1];
                 if ($action === Constants::ACTION_TRACKS) {
+                    echo "Fetching tracks for album ID: $id\n";
                     $album = $this->model->get((int)$id);
                     if ($album[ApiResponse::POS_STATUS] !== ApiResponse::STATUS_SUCCESS) {
                         $this->sendResponse($album);
@@ -42,6 +43,7 @@ class AlbumsController extends BaseController
                     $response = $this->model->getTracks((int)$id);
                     $this->sendResponse($response);
                 } else {
+                    echo "Invalid action: $action\n";
                     $this->sendErrorResponse('Invalid action', 400);
                     exit;
                 }
