@@ -38,7 +38,6 @@ class AlbumsController extends BaseController
                         $this->sendResponse($album);
                     }
                     $response = $this->model->getTracks((int)$id);
-                    echo "Tracks data: " . json_encode($response) . "\n";
                     $this->sendResponse($response);
                 } else {
                     echo "Invalid action: $action\n";

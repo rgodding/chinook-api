@@ -84,6 +84,7 @@ class Albums extends DB
 
     public function getTracks(int $id): array
     {
+        echo "Fetching tracks for album ID: " . $id . "\n";
         $sql = <<<SQL
             SELECT 
             track.TrackId,
