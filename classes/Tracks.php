@@ -10,8 +10,8 @@ class Tracks extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName,
+            MediaType.MediaTypeId,
+            MediaType.Name AS MediaTypeName,
             Genre.GenreId,
             Genre.Name AS GenreName,
             Track.Composer,
@@ -20,7 +20,7 @@ class Tracks extends DB
             Track.UnitPrice
             FROM Track
             JOIN genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.Name LIKE :search
         SQL;
         try {
@@ -46,8 +46,8 @@ class Tracks extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName,
+            MediaType.MediaTypeId,
+            MediaType.Name AS MediaTypeName,
             Genre.GenreId,
             Genre.Name AS GenreName,
             Track.Composer,
@@ -56,7 +56,7 @@ class Tracks extends DB
             Track.UnitPrice
             FROM Track
             JOIN genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.Composer LIKE :composer
         SQL;
         try {
@@ -88,11 +88,11 @@ class Tracks extends DB
             Track.UnitPrice,
             Genre.GenreId,
             Genre.Name AS GenreName,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName
+            MediaType.MediaTypeId,
+            MediaType.Name AS MediaTypeName
             FROM Track
             JOIN genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
+            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.TrackId = :id
         SQL;
         try {

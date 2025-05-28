@@ -95,8 +95,8 @@ class Playlists extends DB
             SELECT 
             Track.TrackId,
             Track.Name,
-            mediatype.MediaTypeId,
-            mediatype.Name AS MediaTypeName,
+            MediaType.MediaTypeId,
+            MediaType.Name AS MediaTypeName,
             Genre.GenreId,
             Genre.Name AS GenreName,
             Track.Composer,
@@ -106,7 +106,7 @@ class Playlists extends DB
             FROM PlaylistTrack
             JOIN Track ON PlaylistTrack.TrackId = Track.TrackId
             JOIN Genre ON Track.GenreId = Genre.GenreId
-            JOIN MediaType ON Track.MediaTypeId = mediatype.MediaTypeId
+            JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE PlaylistTrack.PlaylistId = :id
         SQL;
         try {
