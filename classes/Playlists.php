@@ -105,7 +105,7 @@ class Playlists extends DB
             Track.UnitPrice
             FROM PlaylistTrack
             JOIN Track ON PlaylistTrack.TrackId = Track.TrackId
-            JOIN genre ON Track.GenreId = Genre.GenreId
+            JOIN Genre ON Track.GenreId = Genre.GenreId
             JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
             WHERE PlaylistTrack.PlaylistId = :id
         SQL;
