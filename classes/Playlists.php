@@ -103,7 +103,7 @@ class Playlists extends DB
             Track.Milliseconds,
             Track.Bytes,
             Track.UnitPrice
-            FROM Playlisttrack
+            FROM PlaylistTrack
             JOIN Track ON PlaylistTrack.TrackId = Track.TrackId
             JOIN genre ON Track.GenreId = Genre.GenreId
             JOIN mediatype ON Track.MediaTypeId = mediatype.MediaTypeId
