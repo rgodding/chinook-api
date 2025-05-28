@@ -20,7 +20,7 @@ class Tracks extends DB
             Track.UnitPrice
             FROM Track
             JOIN Genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
+            JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.Name LIKE :search
         SQL;
         try {
@@ -56,7 +56,7 @@ class Tracks extends DB
             Track.UnitPrice
             FROM Track
             JOIN Genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
+            JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.Composer LIKE :composer
         SQL;
         try {
@@ -92,7 +92,7 @@ class Tracks extends DB
             MediaType.Name AS MediaTypeName
             FROM Track
             JOIN Genre ON Track.GenreId = Genre.GenreId
-            JOIN mediatype ON Track.MediaTypeId = MediaType.MediaTypeId
+            JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
             WHERE Track.TrackId = :id
         SQL;
         try {
