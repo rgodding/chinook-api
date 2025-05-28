@@ -32,7 +32,7 @@ class Albums extends DB
 
     function search(string $query){
         $sql = <<<SQL
-            SELECT *,
+            SELECT *
             FROM Album
             WHERE Title LIKE :query
         SQL;

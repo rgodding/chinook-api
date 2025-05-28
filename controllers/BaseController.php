@@ -84,6 +84,7 @@ abstract class BaseController
                 logMessage($message, strtoupper($this->entity), 204, 'INFO');
                 break;
             case ApiResponse::STATUS_SUCCESS_NOT_FOUND:
+                echo json_encode(['message' => 'Resource not found']);
                 http_response_code(404);
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'Resource not found';
                 echo json_encode(['error' => $message]);
@@ -97,7 +98,6 @@ abstract class BaseController
             case ApiResponse::STATUS_ERROR:
                 http_response_code(500);
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'Internal server error';
-                logMessage($message, strtoupper($this->entity), 500, 'ERROR');
                 echo json_encode(['error' => $message]);
                 break;
             default:
