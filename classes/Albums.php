@@ -31,6 +31,7 @@ class Albums extends DB
     }
 
     function search(string $query){
+        $query = InputSanitizer::clean($query);
         $sql = <<<SQL
             SELECT *
             FROM Album
@@ -128,6 +129,7 @@ class Albums extends DB
 
     function create(string $title, int $artistId): array
     {
+        $title = InputSanitizer::clean($title);
         $sql = <<<SQL
             INSERT INTO Album (Title, ArtistId)
             VALUES (:title, :artistId)
@@ -161,6 +163,7 @@ class Albums extends DB
 
     function update(int $id, string $title, int $artistId): array
     {
+        $title = InputSanitizer::clean($title);
         $sql = <<<SQL
             UPDATE Album
             SET Title = :title, ArtistId = :artistId

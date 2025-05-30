@@ -27,6 +27,7 @@ class Artists extends DB
     }
 
     function search(string $query){
+        $query = InputSanitizer::clean($query);
         $sql = <<<SQL
             SELECT *
             FROM Artist
@@ -111,6 +112,7 @@ class Artists extends DB
 
     public function create(string $name): array
     {
+        $name = InputSanitizer::clean($name);
         $sql = <<<SQL
             INSERT INTO Artist (Name)
             VALUES (:name)

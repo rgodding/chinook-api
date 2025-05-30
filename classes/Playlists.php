@@ -30,6 +30,7 @@ class Playlists extends DB
 
     function search(string $search): array
     {
+        $search = InputSanitizer::clean($search);
         $sql = <<<SQL
             SELECT 
             Playlist.PlaylistId,
@@ -128,6 +129,7 @@ class Playlists extends DB
 
     function create(string $name): array
     {
+        $name = InputSanitizer::clean($name);
         $sql = <<<SQL
             INSERT INTO Playlist (Name)
             VALUES (:name)

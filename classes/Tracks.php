@@ -6,6 +6,7 @@ class Tracks extends DB
 {
     function search(string $search): array
     {
+        $search = InputSanitizer::clean($search);
         $sql = <<<SQL
             SELECT 
             Track.TrackId,
@@ -42,6 +43,7 @@ class Tracks extends DB
 
     function searchByComposer(string $composer): array
     {
+        $composer = InputSanitizer::clean($composer);
         $sql = <<<SQL
             SELECT 
             Track.TrackId,
@@ -128,6 +130,8 @@ class Tracks extends DB
         int $bytes,
         float $unitPrice
     ): array {
+        $name = InputSanitizer::clean($name);
+        $composer = InputSanitizer::clean($composer);
         $sql = <<<SQL
             INSERT INTO Track (
                 Name, 
