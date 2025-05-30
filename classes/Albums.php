@@ -30,7 +30,8 @@ class Albums extends DB
         }
     }
 
-    function search(string $query){
+    function search(string $query): array
+    {
         $query = InputSanitizer::clean($query);
         $sql = <<<SQL
             SELECT *
