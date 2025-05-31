@@ -33,7 +33,7 @@ class Tracks extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error searching tracks: " . $e->getMessage());
+           Logger::LogError("Error searching tracks: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error searching tracks'
@@ -70,7 +70,7 @@ class Tracks extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error searching tracks by composer: " . $e->getMessage());
+           Logger::LogError("Error searching tracks by composer: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error searching tracks by composer'
@@ -183,7 +183,7 @@ class Tracks extends DB
             ];
 
         } catch (PDOException $e) {
-            logError("Error creating track: " . $e->getMessage());
+           Logger::LogError("Error creating track: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error creating track'
@@ -244,7 +244,7 @@ class Tracks extends DB
                 ]
             ];
         } catch (PDOException $e) {
-            logError("Error updating track: " . $e->getMessage());
+           Logger::LogError("Error updating track: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error updating track'
@@ -279,7 +279,7 @@ class Tracks extends DB
                     ApiResponse::POS_MESSAGE => 'Cannot delete track, it is referenced by other records'
                 ];
             }
-            logError("Error deleting track: " . $e->getMessage());
+           Logger::LogError("Error deleting track: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error deleting track'

@@ -1,5 +1,4 @@
 <?php
-
 require_once BASE_PATH . '/database/DB.php';
 
 class Artists extends DB
@@ -18,7 +17,7 @@ class Artists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch artists: ' . $e->getMessage());
+           Logger::LogError('Failed to fetch artists: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch artists',
@@ -43,7 +42,7 @@ class Artists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to search artists: ' . $e->getMessage());
+           Logger::LogError('Failed to search artists: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to search artists',
@@ -75,7 +74,7 @@ class Artists extends DB
                 ApiResponse::POS_DATA => $artist,
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch artist by ID: ' . $e->getMessage());
+           Logger::LogError('Failed to fetch artist by ID: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch artist by ID',
@@ -102,7 +101,7 @@ class Artists extends DB
             ];
 
         } catch (PDOException $e) {
-            logError('Failed to fetch albums for artist ID ' . $id . ': ' . $e->getMessage());
+           Logger::LogError('Failed to fetch albums for artist ID ' . $id . ': ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch albums for artist',
@@ -167,7 +166,7 @@ class Artists extends DB
                     ApiResponse::POS_MESSAGE => 'Artist ID:(' . $id . ') cannot be deleted due to existing albums',
                 ];
             }
-            logError('Failed to delete artist: ' . $e->getMessage());
+           Logger::LogError('Failed to delete artist: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to delete artist',

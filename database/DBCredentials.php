@@ -13,11 +13,13 @@ class DBCredentials
         $dotenvPath = __DIR__ . '/../../../.env';
         $dotenvPathLocal = BASE_PATH . '/.env';
         if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
-            throw new Exception('.env file not found');
+            Logger::LogError('No .env file found', 'DBCredentials');
+            throw new Exception('Internal server error');
         }
         $env = parseEnvFile(file_exists($dotenvPath) ? $dotenvPath : $dotenvPathLocal);
         if (empty($env)) {
-            throw new Exception('No environment variables found in .env file');
+            Logger::LogError('No environment variables found in .env file', 'DBCredentials');
+            throw new Exception('Internal server error');
         }
 
         $this->host = $env['DB_HOST'] ?? throw new Exception('DB_HOST missing in .env');

@@ -20,7 +20,7 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error listing Playlists: " . $e->getMessage());
+           Logger::LogError("Error listing Playlists: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error listing Playlists'
@@ -47,7 +47,7 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error searching Playlists: " . $e->getMessage());
+           Logger::LogError("Error searching Playlists: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error searching Playlists'
@@ -81,7 +81,7 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $result
             ];
         } catch (PDOException $e) {
-            logError("Error getting Playlist: " . $e->getMessage());
+           Logger::LogError("Error getting Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error getting Playlist'
@@ -119,7 +119,7 @@ class Playlists extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll()
             ];
         } catch (PDOException $e) {
-            logError("Error getting tracks for Playlist: " . $e->getMessage());
+           Logger::LogError("Error getting tracks for Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error getting tracks for Playlist'
@@ -148,7 +148,7 @@ class Playlists extends DB
                 ]
             ];
         } catch (PDOException $e) {
-            logError("Error creating Playlist: " . $e->getMessage());
+           Logger::LogError("Error creating Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error creating Playlist'
@@ -183,7 +183,7 @@ class Playlists extends DB
                     ApiResponse::POS_MESSAGE => 'Track already exists in Playlist'
                 ];
             }
-            logError("Error adding Track to Playlist: " . $e->getMessage());
+           Logger::LogError("Error adding Track to Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error adding Track to Playlist'
@@ -207,7 +207,7 @@ class Playlists extends DB
                 ApiResponse::POS_MESSAGE => 'Track (TrackId: ' . $trackId . ') removed from Playlist (PlaylistId: ' . $playlistId . ') successfully'
             ];
         } catch (PDOException $e) {
-            logError("Error removing Track from Playlist: " . $e->getMessage());
+           Logger::LogError("Error removing Track from Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error removing Track from Playlist'
@@ -237,7 +237,7 @@ class Playlists extends DB
                     ApiResponse::POS_MESSAGE => 'Cannot delete Playlist with existing tracks'
                 ];
             }
-            logError("Error deleting Playlist: " . $e->getMessage());
+           Logger::LogError("Error deleting Playlist: " . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error deleting Playlist'

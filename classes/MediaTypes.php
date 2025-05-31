@@ -18,7 +18,7 @@ class MediaTypes extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch genres: ' . $e->getMessage());
+           Logger::LogError('Failed to fetch genres: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch genres',

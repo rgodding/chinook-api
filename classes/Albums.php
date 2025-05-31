@@ -22,7 +22,7 @@ class Albums extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch albums: ' . $e->getMessage());
+            Logger::LogError('Failed to fetch albums: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch albums',
@@ -48,7 +48,7 @@ class Albums extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to search albums: ' . $e->getMessage());
+            Logger::LogError('Failed to search albums: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to search albums',
@@ -83,7 +83,7 @@ class Albums extends DB
                 ApiResponse::POS_DATA => $album,
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch album by ID: ' . $e->getMessage());
+            Logger::LogError('Failed to fetch album by ID: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch album by ID',
@@ -120,7 +120,7 @@ class Albums extends DB
                 ApiResponse::POS_DATA => $stmt->fetchAll(PDO::FETCH_ASSOC),
             ];
         } catch (PDOException $e) {
-            logError('Failed to fetch tracks for album ID ' . $id . ': ' . $e->getMessage());
+            Logger::LogError('Failed to fetch tracks for album ID ' . $id . ': ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Failed to fetch tracks for album',
@@ -153,7 +153,7 @@ class Albums extends DB
             ];
 
         } catch (PDOException $e) {
-            logError('Error creating album: ' . $e->getMessage());
+            Logger::LogError('Error creating album: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error creating album'
@@ -187,7 +187,7 @@ class Albums extends DB
                 ]
             ];
         } catch (PDOException $e) {
-            logError('Error updating album: ' . $e->getMessage());
+            Logger::LogError('Error updating album: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error updating album'
@@ -218,13 +218,13 @@ class Albums extends DB
             ];
         } catch (PDOException $e) {
             if( $e->getCode() === '23000') {
-                logError('Error deleting album: ' . $e->getMessage());
+                Logger::LogError('Error deleting album: ' . $e->getMessage());
                 return [
                     ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR_CONFLICT,
                     ApiResponse::POS_MESSAGE => 'Cannot delete album, it is referenced by other records'
                 ];
             }
-            logError('Error deleting album: ' . $e->getMessage());
+            Logger::LogError('Error deleting album: ' . $e->getMessage());
             return [
                 ApiResponse::POS_STATUS => ApiResponse::STATUS_ERROR,
                 ApiResponse::POS_MESSAGE => 'Error deleting album'

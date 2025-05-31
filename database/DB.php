@@ -14,7 +14,12 @@ Class DB extends DBCredentials
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
         ];
-        $this->pdo = new PDO($dsn, $this->user, $this->password, $options);
+        try {
+            $this->pdo = new PDO($dsn, $this->user, $this->password, $options);
+        } catch (PDOException $e) {
+            Logger::LogError('Database connection failed: ' . $e->getMessage(), 'DB');
+            throw new Exception('Internal server error');
+        }
     }
 
     public function __destruct()

@@ -63,7 +63,6 @@ abstract class BaseController
 
     // Helper function to send a response
     protected function sendResponse(array $data) {
-        header('Content-Type: application/json');
         switch($data[ApiResponse::POS_STATUS]){
             case ApiResponse::STATUS_SUCCESS:
                 http_response_code(200);
@@ -74,14 +73,14 @@ abstract class BaseController
                 http_response_code(201);
                 $response = $data[ApiResponse::POS_DATA];
                 $message = 'Created successfully ' . json_encode($response);
-                logMessage($message, strtoupper($this->entity), 201, 'INFO'); 
+                Logger::LogInfo($message, strtoupper($this->entity), 201, 'INFO'); 
                 echo json_encode($response);
                 break;
             case ApiResponse::STATUS_SUCCESS_NO_CONTENT:
                 http_response_code(204);
                 // No content to return
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'No content';
-                logMessage($message, strtoupper($this->entity), 204, 'INFO');
+                Logger::LogInfo($message, strtoupper($this->entity), 204, 'INFO');
                 break;
             case ApiResponse::STATUS_SUCCESS_NOT_FOUND:
                 echo json_encode(['message' => 'Resource not found']);
@@ -92,7 +91,7 @@ abstract class BaseController
             case ApiResponse::STATUS_ERROR_CONFLICT:
                 http_response_code(409);
                 $message = $data[ApiResponse::POS_MESSAGE] ?? 'Conflict occurred';
-                logMessage($message, strtoupper($this->entity), 409, 'ERROR');
+                Logger::LogInfo($message, strtoupper($this->entity), 409, 'ERROR');
                 echo json_encode(['error' => $message]);
                 break;
             case ApiResponse::STATUS_ERROR:
@@ -111,11 +110,6 @@ abstract class BaseController
     }
     
     protected function sendErrorResponse(string $message, int $code = 400, array $details = []) {
-        $error_log = [
-            'message' => $message,
-            'code' => $code,
-            'details' => $details
-        ];
         http_response_code($code);
         header('Content-Type: application/json');
         echo json_encode([
