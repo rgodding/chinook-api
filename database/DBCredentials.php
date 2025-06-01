@@ -10,17 +10,19 @@ class DBCredentials
 
     public function __construct()
     {
-        $dotenvPath = __DIR__ . '/../../../.env';
-        $dotenvPathLocal = BASE_PATH . '/.env';
-        if (!file_exists($dotenvPath) && !file_exists($dotenvPathLocal)) {
-            Logger::LogError('No .env file found', 'DBCredentials');
-            throw new Exception('Internal server error');
+        $dotenvPath = BASE_PATH . '/.env';
+        if(!file_exists($dotenvPath)) {
+            $dotenvPath = BASE_PATH . '/../.env';
+            if(!file_exists($dotenvPath)) {
+                Logger::LogError('No .env file found', 'DBCredentials');
+                throw new Exception('Internal server error');
+            }
         }
-        $env = parseEnvFile(file_exists($dotenvPath) ? $dotenvPath : $dotenvPathLocal);
+        $env = parseEnvFile($dotenvPath);
         if (empty($env)) {
             Logger::LogError('No environment variables found in .env file', 'DBCredentials');
             throw new Exception('Internal server error');
-        }
+        }    
 
         $this->host = $env['DB_HOST'] ?? throw new Exception('DB_HOST missing in .env');
         $this->dbname = $env['DB_NAME'] ?? throw new Exception('DB_NAME missing in .env');
