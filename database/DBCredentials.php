@@ -10,14 +10,20 @@ class DBCredentials
 
     public function __construct()
     {
-        $dotenvPath = BASE_PATH . '/.env';
-        if(!file_exists($dotenvPath)) {
-            $dotenvPath = BASE_PATH . '/../.env';
-            if(!file_exists($dotenvPath)) {
-                Logger::LogError('No .env file found', 'DBCredentials');
-                throw new Exception('Internal server error');
+        $envPaths = [
+            BASE_PATH . '/.env',
+            BASE_PATH . '/../.env',
+            BASE_PATH . '/../../.env'
+        ];
+        $dotenvPath = null;
+        // Check if the .env file exists in any of the specified paths
+        foreach ($envPaths as $path) {
+            if (file_exists($path)) {
+                $dotenvPath = $path;
+                break;
             }
         }
+
         $env = parseEnvFile($dotenvPath);
         if (empty($env)) {
             Logger::LogError('No environment variables found in .env file', 'DBCredentials');
